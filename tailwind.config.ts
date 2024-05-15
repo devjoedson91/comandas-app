@@ -22,9 +22,13 @@ const config = {
         mainGreen: "#007D21",
         yelowDescription: "#F88B0C",
         red500: "#ff3f4b",
-        gray100: "#F2F2F2",
-        gray500: "#868C94",
-        grayBorder: "#DDE4EE",
+        bgPages: "#E5E5E5",
+        bgHome: "#140E0E",
+        bgButton: "#007D21",
+        red800: "#D73A21",
+        zinc800: "#979797",
+        green900: "#00343F",
+        defaultText: "#222222",
       },
       keyframes: {
         "accordion-down": {
