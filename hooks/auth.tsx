@@ -2,9 +2,8 @@
 import { createContext, ReactNode, useState, useEffect } from "react";
 import { destroyCookie, parseCookies, setCookie } from "nookies";
 import { useRouter } from "next/navigation";
-import Router from "next/router";
 import { api } from "@/services/apiClient";
-import { toast, useToast } from "@/components/ui/use-toast";
+import { useToast } from "@/components/ui/use-toast";
 
 type UserProps = {
   id: string;
@@ -22,30 +21,18 @@ type AuthProviderProps = {
 };
 
 type AuthContextData = {
-  user?: UserProps;
+  user: UserProps;
   isAuthenticated: boolean;
   signIn: (credentials: SignInProps) => Promise<void>;
+  signOut: () => void;
 };
 
 export const Auth = createContext({} as AuthContextData);
 
-export function signOut() {
-  try {
-    destroyCookie(undefined, "@frajola.token");
-
-    Router.push("/");
-  } catch (error: any) {
-    toast({
-      description: error.response?.data.error,
-      variant: "destructive",
-    });
-  }
-}
-
 export function AuthProvider({ children }: AuthProviderProps) {
   const { toast } = useToast();
 
-  const [user, setUser] = useState<UserProps>();
+  const [user, setUser] = useState<UserProps>({} as UserProps);
 
   const isAuthenticated = !!user;
 
@@ -59,19 +46,35 @@ export function AuthProvider({ children }: AuthProviderProps) {
         .get("/userinfo")
         .then((response) => {
           const { id, name, email } = response.data;
+
           setUser({ id, name, email });
         })
         .catch(() => {
           signOut();
         });
     }
+
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  async function signIn({ email, password: senha }: SignInProps) {
+  function signOut() {
+    try {
+      destroyCookie(undefined, "@frajola.token");
+
+      router.push("/");
+    } catch (error: any) {
+      toast({
+        description: "Erro ao fazer Logout",
+        variant: "destructive",
+      });
+    }
+  }
+
+  async function signIn({ email, password }: SignInProps) {
     try {
       const response = await api.post("/session", {
         email,
-        senha,
+        password,
       });
 
       const { id, name, token } = response.data;
@@ -96,7 +99,7 @@ export function AuthProvider({ children }: AuthProviderProps) {
   }
 
   return (
-    <Auth.Provider value={{ signIn, isAuthenticated, user }}>
+    <Auth.Provider value={{ signIn, signOut, isAuthenticated, user }}>
       {children}
     </Auth.Provider>
   );

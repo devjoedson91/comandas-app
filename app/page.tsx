@@ -1,5 +1,5 @@
 "use client";
-import { useContext, useEffect, useState } from "react";
+import { useContext, useState } from "react";
 import {
   Form,
   FormControl,
@@ -15,6 +15,7 @@ import { Auth } from "@/hooks/auth";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { Eye, EyeOff } from "lucide-react";
+import Logo from "@/assets/logo.png";
 
 const formSchema = z.object({
   email: z.string().email({ message: "Informe um email válido" }),
@@ -53,7 +54,7 @@ export default function Home() {
           onSubmit={form.handleSubmit(handleSubmit)}
           className="flex flex-col items-center gap-8"
         >
-          {/* <Image src={Logo} alt="Logo" className="h-16 w-48" /> */}
+          <Image src={Logo} alt="Logo" className="w-48" />
           <h1 className="text-2xl self-start font-bold">Login</h1>
           <FormField
             control={form.control}

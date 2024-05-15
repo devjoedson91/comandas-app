@@ -1,3 +1,9 @@
+import MenuHeader from "./components/menu-header";
+
 export default function Menu() {
-  return <h1>menu</h1>;
+  return (
+    <div>
+      <MenuHeader />
+    </div>
+  );
 }

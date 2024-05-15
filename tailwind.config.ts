@@ -21,7 +21,8 @@ const config = {
       colors: {
         mainGreen: "#007D21",
         yelowDescription: "#F88B0C",
-        gray100: "#EAECF0",
+        red500: "#ff3f4b",
+        gray100: "#F2F2F2",
         gray500: "#868C94",
         grayBorder: "#DDE4EE",
       },

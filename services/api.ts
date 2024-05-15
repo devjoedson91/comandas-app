@@ -1,7 +1,6 @@
 import axios, { AxiosError } from "axios";
-import { parseCookies } from "nookies";
+import { parseCookies, destroyCookie } from "nookies";
 import { AuthTokenError } from "./erros/AuthTokenError";
-import { signOut } from "@/hooks/auth";
 
 export function setupAPIClient(ctx = undefined) {
   let cookies = parseCookies(ctx);
@@ -27,7 +26,7 @@ export function setupAPIClient(ctx = undefined) {
         if (typeof window !== undefined) {
           // chamar a função para deslogar o usuario
 
-          signOut();
+          destroyCookie(undefined, "@frajola.token");
         } else {
           return Promise.reject(new AuthTokenError());
         }

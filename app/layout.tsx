@@ -2,11 +2,9 @@
 import type { Metadata } from "next";
 import { M_PLUS_1 } from "next/font/google";
 import "./globals.css";
-import { usePathname } from "next/navigation";
-import { CheckIsPublicRoute } from "@/functions/check-is-public-route";
 import { Toaster } from "@/components/ui/toaster";
 import { AuthProvider } from "@/hooks/auth";
-import PrivateRoute from "@/components/private-route";
+import { CartProvider } from "@/hooks/cart";
 
 const m_plus = M_PLUS_1({ subsets: ["latin"] });
 
@@ -20,19 +18,14 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  const pathName = usePathname();
-
-  const isPublicPage = CheckIsPublicRoute(pathName);
-
   return (
     <html lang="en">
       <body className={m_plus.className}>
         <AuthProvider>
-          <main>
-            {isPublicPage && children}
-            {!isPublicPage && <PrivateRoute>{children}</PrivateRoute>}
-          </main>
-          <Toaster />
+          <CartProvider>
+            <main>{children}</main>
+            <Toaster />
+          </CartProvider>
         </AuthProvider>
       </body>
     </html>
