@@ -16,12 +16,12 @@ export default function CategoryButton({
     <Button
       variant="outline"
       className={twMerge(
-        "border p-3 rounded-lg justify-center items-center",
-        selected ? "border-mainGreen" : null
+        "border border-gray-100 hover:bg-bgPages bg-bgPages p-3 hover:text-white rounded-lg justify-center items-center",
+        selected ? "border-mainGreen border-[3px]" : null
       )}
       onClick={action}
     >
-      <span className="font-medium text-sm">{title}</span>
+      <span className="font-medium text-base w-28">{title}</span>
     </Button>
   );
 }

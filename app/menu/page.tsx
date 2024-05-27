@@ -7,6 +7,7 @@ import { api } from "@/services/apiClient";
 import { useToast } from "@/components/ui/use-toast";
 import Image from "next/image";
 import { Button } from "@/components/ui/button";
+import { formatPrice } from "@/utils/format";
 
 export default function Menu() {
   const { toast } = useToast();
@@ -79,8 +80,8 @@ export default function Menu() {
   return (
     <div>
       <MenuHeader />
-      <div className="p-5 flex flex-col gap-5">
-        <h1 className="font-base text-defaultText font-semibold">Categorias</h1>
+      <div className="p-5 flex flex-col gap-7">
+        <h1 className="font-base text-base font-semibold">Categorias</h1>
         <div className="flex w-full gap-4 overflow-x-auto [&::-webkit-scrollbar]:hidden">
           {category.map((item) => {
             return (
@@ -101,14 +102,14 @@ export default function Menu() {
               variant="outline"
             >
               <div className="flex flex-col gap-2 max-w-[60%]">
-                <h1 className="overflow-hidden text-start text-ellipsis whitespace-nowrap text-sm font-semibold">
+                <h1 className="overflow-hidden text-defaultText text-start text-ellipsis whitespace-nowrap text-base font-semibold">
                   {product.name}
                 </h1>
                 <p className="text-zinc800 overflow-hidden text-ellipsis whitespace-nowrap text-sm">
                   {product.description}
                 </p>
-                <span className="text-start text-sm text-yelowDescription font-semibold">
-                  {product.price}
+                <span className="text-start text-base text-yelowDescription font-semibold">
+                  {formatPrice(Number(product.price))}
                 </span>
               </div>
               <Image

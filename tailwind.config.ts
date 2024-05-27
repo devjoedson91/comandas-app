@@ -22,7 +22,7 @@ const config = {
         mainGreen: "#007D21",
         yelowDescription: "#F88B0C",
         red500: "#ff3f4b",
-        bgPages: "#E5E5E5",
+        bgPages: "#121214",
         bgHome: "#140E0E",
         bgButton: "#007D21",
         red800: "#D73A21",

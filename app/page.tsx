@@ -55,7 +55,7 @@ export default function Home() {
           className="flex flex-col items-center gap-8"
         >
           <Image src={Logo} alt="Logo" className="w-48" />
-          <h1 className="text-2xl self-start font-bold">Login</h1>
+          <h1 className="text-xl self-start font-bold">Login</h1>
           <FormField
             control={form.control}
             name="email"
@@ -64,7 +64,7 @@ export default function Home() {
                 <FormControl>
                   <Input
                     placeholder="E-mail"
-                    className="h-12 w-80 text-sm font-semibold"
+                    className="h-12 w-80 text-base font-semibold"
                     {...field}
                   />
                 </FormControl>
@@ -83,7 +83,7 @@ export default function Home() {
                   <FormControl>
                     <Input
                       placeholder="Senha"
-                      className="h-12 w-80 text-sm font-semibold"
+                      className="h-12 w-80 text-base text-black font-semibold"
                       type={passwordIsVisible ? "text" : "password"}
                       {...field}
                     />
@@ -91,7 +91,7 @@ export default function Home() {
                   <Button
                     type="button"
                     size="icon"
-                    className="absolute right-0 top-0 h-full border bg-white hover:bg-transparent"
+                    className="absolute right-0 top-0 h-full border-none bg-white hover:bg-transparent"
                     onClick={() => setPasswordIsVisible(!passwordIsVisible)}
                   >
                     {passwordIsVisible ? (

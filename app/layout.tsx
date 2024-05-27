@@ -20,7 +20,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={m_plus.className}>
+      <body className={`${m_plus.className} antialiased bg-bgPages text-white`}>
         <AuthProvider>
           <CartProvider>
             <main>{children}</main>

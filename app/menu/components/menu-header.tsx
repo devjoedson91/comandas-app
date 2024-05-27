@@ -16,23 +16,23 @@ export default function MenuHeader() {
       <Button
         variant="outline"
         size="icon"
-        className="bg-transparent border-none"
+        className="bg-transparent hover:bg-transparent border-none"
         onClick={() => signOut()}
       >
-        <LogOut color="#ff3f4b" />
+        <LogOut color="#ff3f4b" size={28} />
       </Button>
-      <Image src={Logo} alt="Logo" width={0} height={0} className="w-32" />
+      <Image src={Logo} alt="Logo" width={0} height={0} className="w-44" />
       <Button
         variant="outline"
         size="icon"
-        className="bg-transparent border-none relative"
+        className="bg-transparent hover:bg-transparent border-none relative"
       >
         {cart.length > 0 && (
           <div className="flex items-center justify-center bg-red500 w-5 h-5 rounded-xl absolute -bottom-[2px] -left-1">
             <span className="text-xs text-white font-bold">{cart.length}</span>
           </div>
         )}
-        <ShoppingCart />
+        <ShoppingCart size={28} />
       </Button>
     </div>
   );
