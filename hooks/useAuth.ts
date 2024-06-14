@@ -1,11 +1,9 @@
 import { useEffect, useState } from "react";
-import { setupAPIClient } from "@/services/api";
 import { destroyCookie, parseCookies, setCookie } from "nookies";
 import { useRouter } from "next/navigation";
 import { useToast } from "@/components/ui/use-toast";
-import { useDispatch } from "react-redux";
-import { setUserAction } from "@/store/reducers/userReducer";
 import { api } from "@/services/apiClient";
+import { useUserReducer } from "@/store/reducers/userReducer/useUserReducer";
 
 type SignInProps = {
   email: string;
@@ -20,14 +18,13 @@ type UserProps = {
 };
 
 export default function useAuth() {
-  const dispatch = useDispatch();
   const router = useRouter();
 
   const { toast } = useToast();
 
   const [loadingAuth, setLoadingAuth] = useState(false);
 
-  //   const user = useSelector((state: RootState) => state.userReducer.user);
+  const { setUser } = useUserReducer();
 
   useEffect(() => {
     const { "@frajola.token": cookie } = parseCookies();
@@ -37,14 +34,7 @@ export default function useAuth() {
     if (Object.keys(hasUser).length > 0) {
       api.defaults.headers.common["Authorization"] = `Bearer ${hasUser.token}`;
 
-      dispatch(
-        setUserAction({
-          id: hasUser.id,
-          name: hasUser.name,
-          email: hasUser.email,
-          token: hasUser.token,
-        })
-      );
+      setUser(hasUser);
     }
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -66,14 +56,7 @@ export default function useAuth() {
         path: "/",
       });
 
-      dispatch(
-        setUserAction({
-          id: data.id,
-          name: data.name,
-          email,
-          token: data.token,
-        })
-      );
+      setUser(data);
 
       api.defaults.headers["Authorization"] = `Bearer ${data.token}`;
 
