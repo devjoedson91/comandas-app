@@ -98,7 +98,7 @@ export default function Menu() {
           return (
             <Button
               key={product.id}
-              className="w-full h-auto border-b border-bgPages flex justify-between py-1 px-4"
+              className="w-full min-h-40 border-b border-bgPages flex justify-between py-1 px-4"
               variant="outline"
             >
               <div className="flex flex-col gap-2 max-w-[60%]">

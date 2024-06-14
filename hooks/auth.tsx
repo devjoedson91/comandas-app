@@ -22,6 +22,7 @@ type AuthProviderProps = {
 
 type AuthContextData = {
   user: UserProps;
+  loadingAuth: boolean;
   isAuthenticated: boolean;
   signIn: (credentials: SignInProps) => Promise<void>;
   signOut: () => void;
@@ -35,6 +36,8 @@ export function AuthProvider({ children }: AuthProviderProps) {
   const [user, setUser] = useState<UserProps>({} as UserProps);
 
   const isAuthenticated = !!user;
+
+  const [loadingAuth, setLoadingAuth] = useState(false);
 
   const router = useRouter();
 
@@ -72,6 +75,8 @@ export function AuthProvider({ children }: AuthProviderProps) {
 
   async function signIn({ email, password }: SignInProps) {
     try {
+      setLoadingAuth(true);
+
       const response = await api.post("/session", {
         email,
         password,
@@ -95,11 +100,15 @@ export function AuthProvider({ children }: AuthProviderProps) {
         description: err.response?.data.error,
         variant: "destructive",
       });
+    } finally {
+      setLoadingAuth(false);
     }
   }
 
   return (
-    <Auth.Provider value={{ signIn, signOut, isAuthenticated, user }}>
+    <Auth.Provider
+      value={{ signIn, signOut, isAuthenticated, user, loadingAuth }}
+    >
       {children}
     </Auth.Provider>
   );

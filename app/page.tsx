@@ -1,5 +1,5 @@
 "use client";
-import { useContext, useState } from "react";
+import { useState } from "react";
 import {
   Form,
   FormControl,
@@ -11,11 +11,11 @@ import { z } from "zod";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import Image from "next/image";
-import { Auth } from "@/hooks/auth";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { Eye, EyeOff } from "lucide-react";
 import Logo from "@/assets/logo.png";
+import useAuth from "@/hooks/useAuth";
 
 const formSchema = z.object({
   email: z.string().email({ message: "Informe um email válido" }),
@@ -25,6 +25,8 @@ const formSchema = z.object({
 });
 
 export default function Home() {
+  const { loadingAuth, signIn } = useAuth();
+
   const form = useForm<z.infer<typeof formSchema>>({
     defaultValues: {
       email: "",
@@ -33,18 +35,10 @@ export default function Home() {
     resolver: zodResolver(formSchema),
   });
 
-  const { signIn } = useContext(Auth);
-
   const [passwordIsVisible, setPasswordIsVisible] = useState(false);
 
-  const [loading, setLoading] = useState(false);
-
   async function handleSubmit(data: z.infer<typeof formSchema>) {
-    setLoading(true);
-
     await signIn(data);
-
-    setLoading(false);
   }
 
   return (
@@ -109,7 +103,7 @@ export default function Home() {
           <Button
             type="submit"
             className="bg-mainGreen hover:bg-mainGreen/60 h-12 uppercase tracking-widest w-80 rounded-md text-sm text-white outline-none"
-            disabled={loading}
+            disabled={loadingAuth}
           >
             Entrar
           </Button>

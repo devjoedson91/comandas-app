@@ -17,3 +17,15 @@ export type ItemProps = {
   name: string;
   amount: string | number;
 };
+
+export type UserProps = {
+  id: string;
+  name: string;
+  email: string;
+  token: string;
+};
+
+export type SignInProps = {
+  email: string;
+  password: string;
+};

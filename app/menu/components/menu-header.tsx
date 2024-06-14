@@ -1,16 +1,17 @@
 "use client";
 import { useContext } from "react";
 import { Button } from "@/components/ui/button";
-import { Auth } from "@/hooks/auth";
 import { LogOut, ShoppingCart } from "lucide-react";
 import Image from "next/image";
 import Logo from "@/assets/logo.png";
 import { CartContext } from "@/hooks/cart";
+import useAuth from "@/hooks/useAuth";
 
 export default function MenuHeader() {
   const { cart } = useContext(CartContext);
 
-  const { signOut } = useContext(Auth);
+  const { signOut } = useAuth();
+
   return (
     <div className="flex items-center px-4 justify-between border-b w-full h-24 border-gray100">
       <Button

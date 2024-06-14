@@ -5,6 +5,8 @@ import "./globals.css";
 import { Toaster } from "@/components/ui/toaster";
 import { AuthProvider } from "@/hooks/auth";
 import { CartProvider } from "@/hooks/cart";
+import { Provider } from "react-redux";
+import store from "@/store";
 
 const m_plus = M_PLUS_1({ subsets: ["latin"] });
 
@@ -21,12 +23,14 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={`${m_plus.className} antialiased bg-bgPages text-white`}>
-        <AuthProvider>
-          <CartProvider>
-            <main>{children}</main>
-            <Toaster />
-          </CartProvider>
-        </AuthProvider>
+        <Provider store={store}>
+          <AuthProvider>
+            <CartProvider>
+              <main>{children}</main>
+              <Toaster />
+            </CartProvider>
+          </AuthProvider>
+        </Provider>
       </body>
     </html>
   );

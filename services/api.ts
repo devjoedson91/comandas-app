@@ -5,11 +5,13 @@ import { AuthTokenError } from "./erros/AuthTokenError";
 export function setupAPIClient(ctx = undefined) {
   let cookies = parseCookies(ctx);
 
+  const cookie = JSON.parse(cookies["@frajola.token"] || "{}");
+
   const api = axios.create({
     baseURL:
       "https://hampix-server-gtvd-3j1neuy12-devjoedson91s-projects.vercel.app",
     headers: {
-      Authorization: `Bearer ${cookies["@frajola.token"]}`,
+      Authorization: `Bearer ${cookie.token}`,
     },
   });
 
