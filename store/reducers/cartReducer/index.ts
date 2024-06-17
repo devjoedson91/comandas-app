@@ -9,7 +9,10 @@ interface CartStateData {
   // removeCart?: () => void;
 }
 
-const storagedCart = localStorage.getItem("@comanda:cart");
+const storagedCart =
+  typeof window !== undefined
+    ? window.localStorage.getItem("@comanda:cart")
+    : false;
 
 const initialState: CartStateData = {
   cart: storagedCart ? JSON.parse(storagedCart) : [],
