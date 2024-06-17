@@ -60,7 +60,7 @@ export default function Order() {
 
   return (
     <>
-      <Header pathname={window.location.pathname} />
+      <Header />
       <div className="p-6 flex flex-col gap-4">
         <div className="relative w-full h-44">
           <Image

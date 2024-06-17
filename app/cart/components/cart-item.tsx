@@ -1,0 +1,59 @@
+import { Card, CardContent } from "@/components/ui/card";
+import useCart from "@/hooks/useCart";
+import { Product } from "@/types";
+import { formatPrice } from "@/utils/format";
+import { Minus, Plus } from "lucide-react";
+import Image from "next/image";
+
+interface CardItemProps {
+  item: Product;
+}
+
+export default function CartItem({ item }: CardItemProps) {
+  const { addToCart, removeFromCart } = useCart();
+
+  function handleRemoveItemCart() {
+    removeFromCart(item.id);
+  }
+
+  function handleAddItemCart() {
+    addToCart(item);
+  }
+
+  return (
+    <Card className="w-full bg-secondary border-none">
+      <CardContent className="p-3 flex items-center justify-around">
+        <Image
+          src={item.banner}
+          alt={item.name}
+          width={160}
+          height={128}
+          className="w-40 h-32 rounded"
+          objectFit="cover"
+        />
+        <div className="flex flex-col h-full items-center gap-4">
+          <div className="flex flex-col gap-4">
+            <h1 className="text-base text-white font-medium">{item.name}</h1>
+            <p className="text-yelowDescription text-base font-medium">
+              {formatPrice(item.total)}
+            </p>
+          </div>
+          <div className="border p-2 w-28 border-zinc800 rounded-md flex items-center justify-between">
+            <button
+              onClick={() => handleRemoveItemCart()}
+              disabled={(item.amount as number) === 0 || !item}
+            >
+              <Minus size={22} color="#979797" />
+            </button>
+            <h1 className="font-bold text-base text-yelowDescription">
+              {item.amount}
+            </h1>
+            <button onClick={() => handleAddItemCart()}>
+              <Plus size={22} color="#979797" />
+            </button>
+          </div>
+        </div>
+      </CardContent>
+    </Card>
+  );
+}
