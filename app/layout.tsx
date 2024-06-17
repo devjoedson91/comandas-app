@@ -16,7 +16,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <head>
-        <title>Sistema de Tickets</title>
+        <title>Sistema de Comandas</title>
       </head>
       <body className={`${m_plus.className} antialiased bg-bgPages text-white`}>
         <Provider store={store}>

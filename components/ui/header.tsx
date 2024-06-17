@@ -1,30 +1,46 @@
 "use client";
-import { useContext } from "react";
 import { Button } from "@/components/ui/button";
-import { LogOut, ShoppingCart } from "lucide-react";
+import { ChevronLeft, LogOut, ShoppingCart } from "lucide-react";
 import Image from "next/image";
 import Logo from "@/assets/logo.png";
-import { CartContext } from "@/hooks/cart";
 import useAuth from "@/hooks/useAuth";
+import { useRouter } from "next/navigation";
+import useCart from "@/hooks/useCart";
 
-export default function MenuHeader() {
-  const { cart } = useContext(CartContext);
+interface HeaderProps {
+  pathname: string;
+}
+
+export default function Header({ pathname }: HeaderProps) {
+  const router = useRouter();
+
+  const { cart } = useCart();
 
   const { signOut } = useAuth();
+
+  function handleButtonClick() {
+    if (pathname === "/menu") {
+      signOut();
+    } else {
+      router.back();
+    }
+  }
 
   return (
     <div className="flex items-center px-4 justify-between border-b w-full h-24 border-gray100">
       <Button
-        variant="outline"
         size="icon"
         className="bg-transparent hover:bg-transparent border-none"
-        onClick={() => signOut()}
+        onClick={handleButtonClick}
       >
-        <LogOut color="#ff3f4b" size={28} />
+        {pathname === "/menu" ? (
+          <LogOut color="#ff3f4b" size={28} />
+        ) : (
+          <ChevronLeft size={28} />
+        )}
       </Button>
       <Image src={Logo} alt="Logo" width={0} height={0} className="w-44" />
       <Button
-        variant="outline"
         size="icon"
         className="bg-transparent hover:bg-transparent border-none relative"
       >

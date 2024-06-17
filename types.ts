@@ -25,7 +25,17 @@ export type UserProps = {
   token: string;
 };
 
-export type SignInProps = {
-  email: string;
-  password: string;
-};
+export interface Product {
+  id: string;
+  name: string;
+  description: string;
+  price: string;
+  banner: string;
+  amount: number;
+  total: number;
+}
+
+export interface UpdateProductAmount {
+  productId: string;
+  amount: number;
+}

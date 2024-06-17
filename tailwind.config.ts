@@ -23,6 +23,7 @@ const config = {
         yelowDescription: "#F88B0C",
         red500: "#ff3f4b",
         bgPages: "#121214",
+        secondary: "#202024",
         bgHome: "#140E0E",
         bgButton: "#007D21",
         red800: "#D73A21",
