@@ -1,6 +1,10 @@
 import { useEffect, useRef } from "react";
 import { AppDispatch, RootState } from "@/store";
-import { addItemCart, removeItemCart } from "@/store/reducers/cartReducer";
+import {
+  addItemCart,
+  removeCart,
+  removeItemCart,
+} from "@/store/reducers/cartReducer";
 import { Product } from "@/types";
 import { useDispatch, useSelector } from "react-redux";
 
@@ -31,9 +35,14 @@ export default function useCart() {
     dispatch(removeItemCart(product_id));
   }
 
+  function remove() {
+    dispatch(removeCart());
+  }
+
   return {
     cart,
     addToCart,
     removeFromCart,
+    remove,
   };
 }

@@ -40,7 +40,7 @@ const config = {
           from: { height: "var(--radix-accordion-content-height)" },
           to: { height: "0" },
         },
-        "activity-indicator": {
+        loading: {
           from: { trasform: "rotate(0deg)" },
           to: { transform: "rotate(360deg)" },
         },
@@ -48,7 +48,7 @@ const config = {
       animation: {
         "accordion-down": "accordion-down 0.2s ease-out",
         "accordion-up": "accordion-up 0.2s ease-out",
-        "activity-indicator": "activity-indicator 0.7s linear infinite",
+        loading: "loading 0.7s linear infinite",
       },
     },
   },

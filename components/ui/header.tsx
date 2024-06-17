@@ -6,11 +6,20 @@ import Logo from "@/assets/logo.png";
 import useAuth from "@/hooks/useAuth";
 import { useRouter } from "next/navigation";
 import useCart from "@/hooks/useCart";
+import { twMerge } from "tailwind-merge";
+import {
+  Dialog,
+  DialogClose,
+  DialogContent,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+} from "./dialog";
 
 export default function Header() {
   const router = useRouter();
 
-  const { cart } = useCart();
+  const { cart, remove } = useCart();
 
   const { signOut } = useAuth();
 
@@ -26,7 +35,9 @@ export default function Header() {
     router.push("/cart");
   }
 
-  function handleRemoveCart() {}
+  function handleRemoveCart() {
+    remove();
+  }
 
   return (
     <div className="flex items-center px-4 justify-between border-b w-full h-24 border-gray100">
@@ -47,13 +58,32 @@ export default function Header() {
         <Image src={Logo} alt="Logo" width={0} height={0} className="w-44" />
       )}
       {window.location.pathname === "/cart" ? (
-        <Button
-          size="icon"
-          className="bg-transparent hover:bg-transparent relative"
-          onClick={handleRemoveCart}
-        >
-          <Trash2 size={30} color="#D73A21" />
-        </Button>
+        <Dialog>
+          <DialogTrigger
+            className={twMerge(
+              "bg-transparent hover:bg-transparent relative hidden",
+              cart.length && "block"
+            )}
+          >
+            <Trash2 size={30} color="#D73A21" />
+          </DialogTrigger>
+          <DialogContent>
+            <DialogHeader>
+              <DialogTitle>Deseja realmente excluir sua comanda?</DialogTitle>
+            </DialogHeader>
+            <div className="w-full flex justify-center items-center">
+              <DialogClose asChild>
+                <Button
+                  className="bg-mainGreen hover:bg-mainGreen/60 text-white font-medium text-base"
+                  variant="outline"
+                  onClick={handleRemoveCart}
+                >
+                  Sim
+                </Button>
+              </DialogClose>
+            </div>
+          </DialogContent>
+        </Dialog>
       ) : (
         <Button
           size="icon"

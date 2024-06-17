@@ -3,10 +3,6 @@ import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
 interface CartStateData {
   cart: Product[];
-  // addItemCart?: (productId: string) => Promise<void>;
-  // removeItemCart?: (productId: string) => void;
-  // updateProductAmount?: ({ productId, amount }: UpdateProductAmount) => void;
-  // removeCart?: () => void;
 }
 
 const storagedCart =
@@ -57,9 +53,12 @@ export const cartSlice = createSlice({
         }
       }
     },
+    removeCart(state) {
+      state.cart = [];
+    },
   },
 });
 
-export const { addItemCart, removeItemCart } = cartSlice.actions;
+export const { addItemCart, removeItemCart, removeCart } = cartSlice.actions;
 
 export default cartSlice.reducer;

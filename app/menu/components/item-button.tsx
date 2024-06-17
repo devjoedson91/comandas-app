@@ -17,7 +17,7 @@ export default function ItemButton({ product }: ItemButtonProps) {
 
   return (
     <Button
-      className="w-full min-h-40 flex justify-between py-1 px-4 bg-secondary"
+      className="w-full min-h-40 flex justify-between py-1 px-4 bg-secondary hover:bg-bgPages"
       onClick={() => navigateToOpenOrder(product.id)}
     >
       <div className="flex flex-col gap-2 max-w-[60%]">

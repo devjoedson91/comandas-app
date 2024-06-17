@@ -8,6 +8,7 @@ import { Button } from "@/components/ui/button";
 import { Minus, Plus } from "lucide-react";
 import Header from "@/components/ui/header";
 import useCart from "@/hooks/useCart";
+import Loading from "@/components/ui/loading";
 
 export default function Order() {
   const searchParams = useSearchParams();
@@ -51,7 +52,7 @@ export default function Order() {
   if (loading) {
     return (
       <div className="flex justify-center items-center h-screen">
-        <h1>loading</h1>
+        <Loading />
       </div>
     );
   }

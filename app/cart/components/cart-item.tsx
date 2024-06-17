@@ -22,7 +22,7 @@ export default function CartItem({ item }: CardItemProps) {
 
   return (
     <Card className="w-full bg-secondary border-none">
-      <CardContent className="p-3 flex items-center justify-around">
+      <CardContent className="p-3 gap-4 flex items-center justify-between">
         <Image
           src={item.banner}
           alt={item.name}

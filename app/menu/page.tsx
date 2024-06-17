@@ -6,10 +6,12 @@ import { api } from "@/services/apiClient";
 import { useToast } from "@/components/ui/use-toast";
 import ItemButton from "./components/item-button";
 import Header from "@/components/ui/header";
+import Loading from "@/components/ui/loading";
 
 export default function Menu() {
   const { toast } = useToast();
-  const [loading, setLoading] = useState(false);
+  const [loadingCategory, setLoadingCategory] = useState(false);
+  const [loadingProduct, setLoadingProduct] = useState(false);
 
   const [category, setCategory] = useState<CategoryProps[]>([]);
 
@@ -36,7 +38,7 @@ export default function Menu() {
 
   async function loadCategories() {
     try {
-      setLoading(true);
+      setLoadingCategory(true);
 
       const response = await api.get("/category");
 
@@ -48,13 +50,13 @@ export default function Menu() {
         variant: "destructive",
       });
     } finally {
-      setLoading(false);
+      setLoadingCategory(false);
     }
   }
 
   async function loadProducts() {
     try {
-      setLoading(true);
+      setLoadingProduct(true);
       const response = await api.get("/category/product", {
         params: { category_id: categorySelected?.id },
       });
@@ -67,7 +69,7 @@ export default function Menu() {
         variant: "destructive",
       });
     } finally {
-      setLoading(false);
+      setLoadingProduct(false);
     }
   }
 
@@ -75,9 +77,17 @@ export default function Menu() {
     setCategorySelected(item);
   }
 
+  if (loadingCategory) {
+    return (
+      <div className="flex justify-center items-center h-screen">
+        <Loading />
+      </div>
+    );
+  }
+
   return (
     <div>
-      <Header pathname={window.location.pathname} />
+      <Header />
       <div className="p-6 flex flex-col gap-7">
         <h1 className="font-base text-base font-semibold">Categorias</h1>
         <div className="flex w-full gap-4 overflow-x-auto [&::-webkit-scrollbar]:hidden">
@@ -92,9 +102,15 @@ export default function Menu() {
             );
           })}
         </div>
-        {products.map((product) => {
-          return <ItemButton key={product.id} product={product} />;
-        })}
+        {loadingProduct ? (
+          <div className="h-96 flex items-center justify-center">
+            <Loading />
+          </div>
+        ) : (
+          products.map((product) => {
+            return <ItemButton key={product.id} product={product} />;
+          })
+        )}
       </div>
     </div>
   );
