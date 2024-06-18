@@ -27,9 +27,9 @@ export default function ItemButton({ product }: ItemButtonProps) {
         <p className="text-zinc800 overflow-hidden text-ellipsis whitespace-nowrap text-sm">
           {product.description}
         </p>
-        <span className="text-start text-base text-yelowDescription font-semibold">
+        <p className="text-start text-base text-yelowDescription font-semibold">
           {formatPrice(Number(product.price))}
-        </span>
+        </p>
       </div>
       <Image
         src={product.banner}

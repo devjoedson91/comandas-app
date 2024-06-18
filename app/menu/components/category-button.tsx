@@ -21,7 +21,7 @@ export default function CategoryButton({
       )}
       onClick={action}
     >
-      <span className="font-medium text-base w-28">{title}</span>
+      <h1 className="font-medium text-base w-28">{title}</h1>
     </Button>
   );
 }
