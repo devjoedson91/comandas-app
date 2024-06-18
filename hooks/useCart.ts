@@ -2,7 +2,7 @@ import { useEffect, useRef } from "react";
 import { AppDispatch, RootState } from "@/store";
 import {
   addItemCart,
-  removeCart,
+  remove,
   removeItemCart,
 } from "@/store/reducers/cartReducer";
 import { Product } from "@/types";
@@ -23,7 +23,9 @@ export default function useCart() {
 
   useEffect(() => {
     if (cartPreviousValue !== cart) {
-      localStorage.setItem("@comanda:cart", JSON.stringify(cart));
+      if (typeof localStorage !== "undefined") {
+        localStorage.setItem("@comanda:cart", JSON.stringify(cart));
+      }
     }
   }, [cart, cartPreviousValue]);
 
@@ -35,14 +37,14 @@ export default function useCart() {
     dispatch(removeItemCart(product_id));
   }
 
-  function remove() {
-    dispatch(removeCart());
+  function removeCart() {
+    dispatch(remove());
   }
 
   return {
     cart,
     addToCart,
     removeFromCart,
-    remove,
+    removeCart,
   };
 }

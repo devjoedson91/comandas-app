@@ -91,45 +91,27 @@ export default function Cart() {
                 Finalizar
               </Button>
             </DialogTrigger>
-            <DialogContent>
+            <DialogContent className="flex flex-col gap-8">
               <DialogHeader>
-                <DialogTitle>Deseja informar o nome do cliente?</DialogTitle>
+                <DialogTitle>
+                  Se desejar, informe o nome do cliente abaixo
+                </DialogTitle>
               </DialogHeader>
-              <div className="w-full flex gap-4 items-center justify-around">
-                <DialogClose asChild>
-                  <Dialog>
-                    <DialogTrigger>
-                      <Button className="bg-mainGreen hover:bg-mainGreen/60 text-white font-medium text-base">
-                        Sim
-                      </Button>
-                    </DialogTrigger>
-                    <DialogContent>
-                      <Input
-                        className="w-full font-semibold"
-                        placeholder="Nome do cliente"
-                        value={name}
-                        onChange={(event) => setName(event.target.value)}
-                      />
-                      <DialogClose asChild>
-                        <Button
-                          className="bg-mainGreen hover:bg-mainGreen/60 text-white font-medium text-base"
-                          variant="outline"
-                          onClick={handleOpenOrder}
-                          disabled={name.length < 3 || loading}
-                        >
-                          Gerar comanda
-                        </Button>
-                      </DialogClose>
-                    </DialogContent>
-                  </Dialog>
-                </DialogClose>
-
+              <div className="w-full flex-col flex gap-8 items-center">
+                <Input
+                  className="w-full font-semibold"
+                  placeholder="Nome do cliente"
+                  value={name}
+                  onChange={(event) => setName(event.target.value)}
+                />
                 <DialogClose asChild>
                   <Button
-                    className="bg-yelowDescription hover:bg-yelowDescription/60 text-white font-medium text-base"
+                    className="bg-mainGreen hover:bg-mainGreen/60 text-white font-medium text-base"
+                    variant="outline"
                     onClick={handleOpenOrder}
+                    disabled={loading}
                   >
-                    Não
+                    Gerar comanda
                   </Button>
                 </DialogClose>
               </div>

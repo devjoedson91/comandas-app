@@ -39,3 +39,16 @@ export interface UpdateProductAmount {
   productId: string;
   amount: number;
 }
+
+export interface ItemsByOrderProps {
+  amount: number;
+  product: {
+    id: string;
+    name: string;
+    price: string;
+  };
+  order: {
+    name: string;
+    created_at: string;
+  };
+}

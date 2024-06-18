@@ -19,12 +19,14 @@ import {
 export default function Header() {
   const router = useRouter();
 
-  const { cart, remove } = useCart();
+  const { cart, removeCart } = useCart();
+
+  const pathname = global.window && window.location.pathname;
 
   const { signOut } = useAuth();
 
   function handleButtonClick() {
-    if (window.location.pathname === "/menu") {
+    if (pathname === "/menu") {
       signOut();
     } else {
       router.back();
@@ -36,7 +38,7 @@ export default function Header() {
   }
 
   function handleRemoveCart() {
-    remove();
+    removeCart();
   }
 
   return (
@@ -46,18 +48,18 @@ export default function Header() {
         className="bg-transparent hover:bg-transparent border-none"
         onClick={handleButtonClick}
       >
-        {window.location.pathname === "/menu" ? (
+        {pathname === "/menu" ? (
           <LogOut color="#ff3f4b" size={30} />
         ) : (
           <ChevronLeft size={30} />
         )}
       </Button>
-      {window.location.pathname === "/cart" ? (
+      {pathname === "/cart" ? (
         <h1 className="text-xl font-bold">Comanda</h1>
       ) : (
         <Image src={Logo} alt="Logo" width={0} height={0} className="w-44" />
       )}
-      {window.location.pathname === "/cart" ? (
+      {pathname === "/cart" ? (
         <Dialog>
           <DialogTrigger
             className={twMerge(
@@ -67,7 +69,7 @@ export default function Header() {
           >
             <Trash2 size={30} color="#D73A21" />
           </DialogTrigger>
-          <DialogContent>
+          <DialogContent className="flex flex-col gap-8">
             <DialogHeader>
               <DialogTitle>Deseja realmente excluir sua comanda?</DialogTitle>
             </DialogHeader>

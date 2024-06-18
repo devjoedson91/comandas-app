@@ -8,8 +8,7 @@ export function setupAPIClient(ctx = undefined) {
   const cookie = JSON.parse(cookies["@frajola.token"] || "{}");
 
   const api = axios.create({
-    baseURL:
-      "https://hampix-server-gtvd-3j1neuy12-devjoedson91s-projects.vercel.app",
+    baseURL: "http://localhost:3333",
     headers: {
       Authorization: `Bearer ${cookie.token}`,
     },
