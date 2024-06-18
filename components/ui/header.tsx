@@ -71,7 +71,7 @@ export default function Header() {
             <DialogHeader>
               <DialogTitle>Deseja realmente excluir sua comanda?</DialogTitle>
             </DialogHeader>
-            <div className="w-full flex justify-center items-center">
+            <div className="w-full flex justify-around items-center">
               <DialogClose asChild>
                 <Button
                   className="bg-mainGreen hover:bg-mainGreen/60 text-white font-medium text-base"
@@ -79,6 +79,14 @@ export default function Header() {
                   onClick={handleRemoveCart}
                 >
                   Sim
+                </Button>
+              </DialogClose>
+              <DialogClose asChild>
+                <Button
+                  className="bg-yelowDescription hover:bg-yelowDescription/60 text-white font-medium text-base"
+                  variant="outline"
+                >
+                  Voltar
                 </Button>
               </DialogClose>
             </div>
