@@ -15,7 +15,7 @@ export default function Order() {
 
   const { cart, addToCart, removeFromCart } = useCart();
 
-  const product_id = searchParams.get("product_id");
+  const product_id = searchParams.get("product_id") as string;
 
   const [loading, setLoading] = useState(false);
 

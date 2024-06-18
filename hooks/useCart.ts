@@ -23,9 +23,7 @@ export default function useCart() {
 
   useEffect(() => {
     if (cartPreviousValue !== cart) {
-      if (typeof window !== "undefined") {
-        localStorage.setItem("@comanda:cart", JSON.stringify(cart));
-      }
+      localStorage.setItem("@comanda:cart", JSON.stringify(cart));
     }
   }, [cart, cartPreviousValue]);
 
