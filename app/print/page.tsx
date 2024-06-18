@@ -20,7 +20,7 @@ export default function Print() {
 
   const { user } = useUserReducer();
 
-  const order_id = search.get("order_id");
+  const order_id = search.get("order_id") as string;
 
   const comandaRef = useRef(null);
 
