@@ -28,6 +28,10 @@ export default function Print() {
 
   const [loading, setLoading] = useState(true);
 
+  const [name, setName] = useState("");
+
+  const [createdAt, setCreatedAt] = useState(Date.now());
+
   const total = formatPrice(
     cart.reduce((sumTotal, product) => {
       return (sumTotal += product.amount * Number(product.price));
@@ -46,6 +50,10 @@ export default function Print() {
         order_id,
       },
     });
+
+    setName(response.data[0].order.name);
+
+    setCreatedAt(response.data[0].order.created_at);
 
     setItems(response.data);
 
@@ -89,11 +97,10 @@ export default function Print() {
         <CardContent className="flex flex-col gap-5">
           <p>
             <strong>Data: </strong>
-            {items[0] && new Date(items[0].order.created_at).toLocaleString()}
+            {new Date(createdAt).toLocaleString()}
           </p>
           <p>
-            <strong>Cliente: </strong>{" "}
-            {!items[0] ? "Não informado" : items[0].order.name}
+            <strong>Cliente: </strong> {!name ? "Não informado" : name}
           </p>
           <p>
             <strong>Operador: </strong> {user?.name}
