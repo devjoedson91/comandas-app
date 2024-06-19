@@ -91,7 +91,7 @@ export default function Cart() {
                 Finalizar
               </Button>
             </DialogTrigger>
-            <DialogContent className="flex flex-col gap-8">
+            <DialogContent className="flex flex-col gap-10">
               <DialogHeader>
                 <DialogTitle>
                   Se desejar, informe o nome do cliente abaixo
@@ -104,16 +104,15 @@ export default function Cart() {
                   value={name}
                   onChange={(event) => setName(event.target.value)}
                 />
-                <DialogClose asChild>
-                  <Button
-                    className="bg-mainGreen hover:bg-mainGreen/60 text-white font-medium text-base"
-                    variant="outline"
-                    onClick={handleOpenOrder}
-                    disabled={loading}
-                  >
-                    Gerar comanda
-                  </Button>
-                </DialogClose>
+
+                <Button
+                  className="bg-mainGreen hover:bg-mainGreen/60 text-white font-medium text-base"
+                  variant="outline"
+                  onClick={handleOpenOrder}
+                  disabled={loading}
+                >
+                  Gerar comanda
+                </Button>
               </div>
             </DialogContent>
           </Dialog>
