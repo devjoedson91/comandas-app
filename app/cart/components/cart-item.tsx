@@ -21,24 +21,25 @@ export default function CartItem({ item }: CardItemProps) {
   }
 
   return (
-    <Card className="w-full bg-secondary border-none">
-      <CardContent className="p-3 gap-4 flex items-center justify-between">
+    <Card className="bg-secondary border-none">
+      <CardContent className="py-3 px-4 w-full flex items-center justify-between">
         <Image
           src={item.banner}
           alt={item.name}
-          width={160}
-          height={128}
-          className="w-40 h-32 rounded"
+          width={0}
+          height={0}
+          sizes="100vw"
+          className="w-40 h-40 rounded"
           objectFit="cover"
         />
-        <div className="flex flex-col h-full items-center gap-4">
+        <div className="flex flex-col w-36 gap-4">
           <div className="flex flex-col gap-4">
             <h1 className="text-base text-white font-medium">{item.name}</h1>
             <p className="text-yelowDescription text-base font-medium">
               {formatPrice(item.total)}
             </p>
           </div>
-          <div className="border p-2 w-28 border-zinc800 rounded-md flex items-center justify-between">
+          <div className="border p-2 border-zinc800 rounded-md flex items-center justify-between">
             <button
               onClick={() => handleRemoveItemCart()}
               disabled={(item.amount as number) === 0 || !item}

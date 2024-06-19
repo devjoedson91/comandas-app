@@ -93,9 +93,7 @@ export default function Print() {
           </p>
           <p>
             <strong>Cliente: </strong>{" "}
-            {items[0] && !items[0].order.name
-              ? "Não informado"
-              : items[0].order.name}
+            {!items[0] ? "Não informado" : items[0].order.name}
           </p>
           <p>
             <strong>Operador: </strong> {user?.name}
