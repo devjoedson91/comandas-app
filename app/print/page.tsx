@@ -102,12 +102,11 @@ export default function Print() {
 
   return (
     <div className="p-5 flex flex-col gap-10 relative mi-h-screen">
-      <div
-        ref={comandaRef}
-        className="bg-yellow-100 rounded-md w-full text-black p-5"
-      >
-        <h1 className="text-center text-lg mb-5">Comanda</h1>
-        <div className="flex flex-col gap-5">
+      <Card ref={comandaRef} className="bg-yellow-100">
+        <CardHeader>
+          <CardTitle className="text-center text-lg">Comanda</CardTitle>
+        </CardHeader>
+        <CardContent className="flex flex-col gap-5">
           <p>
             <strong>Data: </strong>
             {new Date(createdAt).toLocaleString()}
@@ -123,24 +122,25 @@ export default function Print() {
             <p className="font-bold">Preço</p>
           </div>
           <div className="flex flex-col gap-1">
-            {items.map((item, index) => {
-              return (
-                <div
-                  key={index}
-                  className="w-full items-center justify-between flex"
-                >
-                  <p>{`${item.amount}x ${item.product.name}`}</p>
-                  <p>{formatPrice(Number(item.product.price))}</p>
-                </div>
-              );
-            })}
+            {items.length &&
+              items.map((item, index) => {
+                return (
+                  <div
+                    key={index}
+                    className="w-full items-center justify-between flex"
+                  >
+                    <p>{`${item.amount}x ${item.product.name}`}</p>
+                    <p>{formatPrice(Number(item.product.price))}</p>
+                  </div>
+                );
+              })}
           </div>
           <div className="w-full flex justify-between items-center">
             <p className="font-bold">Total:</p>
             <p className="font-bold">{total}</p>
           </div>
-        </div>
-      </div>
+        </CardContent>
+      </Card>
 
       <div className="flex items-center w-full justify-between gap-10">
         <Button
