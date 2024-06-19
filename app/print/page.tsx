@@ -69,8 +69,6 @@ export default function Print() {
 
     removeCart();
 
-    setLoading(false);
-
     router.push("/menu");
   }
 
@@ -83,7 +81,7 @@ export default function Print() {
   }
 
   return (
-    <div className="p-5 relative">
+    <div className="p-5 flex flex-col gap-10 relative h-screen">
       <Card ref={comandaRef} className="bg-yellow-100">
         <CardHeader>
           <CardTitle className="text-center text-lg">Comanda</CardTitle>
@@ -91,12 +89,11 @@ export default function Print() {
         <CardContent className="flex flex-col gap-5">
           <p>
             <strong>Data: </strong>
-            {items.length &&
-              new Date(items[0].order.created_at).toLocaleString()}
+            {items[0] && new Date(items[0].order.created_at).toLocaleString()}
           </p>
           <p>
             <strong>Cliente: </strong>{" "}
-            {items.length && !items[0].order.name
+            {items[0] && !items[0].order.name
               ? "Não informado"
               : items[0].order.name}
           </p>
@@ -127,7 +124,7 @@ export default function Print() {
         </CardContent>
       </Card>
 
-      <div className="absolute w-full bottom-10 left-0 p-5 flex items-center gap-10">
+      <div className="flex items-center w-full justify-between gap-10">
         <Button
           className="w-full bg-mainGreen hover:bg-mainGreen"
           onClick={handlePrint}
