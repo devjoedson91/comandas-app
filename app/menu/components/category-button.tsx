@@ -14,7 +14,6 @@ export default function CategoryButton({
 }: ButtonProps) {
   return (
     <Button
-      variant="outline"
       className={twMerge(
         "border border-gray-100 hover:bg-bgPages bg-bgPages p-3 hover:text-white rounded-lg justify-center items-center",
         selected ? "border-mainGreen border-[3px]" : null

@@ -4,7 +4,7 @@ import { ChevronLeft, LogOut, ShoppingCart, Trash2 } from "lucide-react";
 import Image from "next/image";
 import Logo from "@/assets/logo.png";
 import useAuth from "@/hooks/useAuth";
-import { useRouter } from "next/navigation";
+import { useRouter, usePathname } from "next/navigation";
 import useCart from "@/hooks/useCart";
 import { twMerge } from "tailwind-merge";
 import {
@@ -21,7 +21,7 @@ export default function Header() {
 
   const { cart, removeCart } = useCart();
 
-  const pathname = global.window && window.location.pathname;
+  const pathname = usePathname();
 
   const { signOut } = useAuth();
 
@@ -54,11 +54,13 @@ export default function Header() {
           <ChevronLeft size={30} />
         )}
       </Button>
+
       {pathname === "/cart" ? (
         <h1 className="text-xl font-bold">Comanda</h1>
       ) : (
-        <Image src={Logo} alt="Logo" width={0} height={0} className="w-44" />
+        <Image src={Logo} alt="Logo" width={170} height={170} />
       )}
+
       {pathname === "/cart" ? (
         <Dialog>
           <DialogTrigger
@@ -102,12 +104,10 @@ export default function Header() {
         >
           {cart.length > 0 && (
             <div className="flex items-center justify-center bg-red500 w-5 h-5 rounded-xl absolute -bottom-[2px] -left-1">
-              <span className="text-xs text-white font-bold">
-                {cart.length}
-              </span>
+              <p className="text-xs text-white font-bold">{cart.length}</p>
             </div>
           )}
-          <ShoppingCart size={28} />
+          <ShoppingCart size={30} />
         </Button>
       )}
     </div>

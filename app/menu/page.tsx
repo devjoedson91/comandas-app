@@ -86,7 +86,7 @@ export default function Menu() {
   }
 
   return (
-    <>
+    <div>
       <Header />
       <div className="p-6 flex flex-col gap-7">
         <h1 className="font-base text-base font-semibold">Categorias</h1>
@@ -112,6 +112,6 @@ export default function Menu() {
           })
         )}
       </div>
-    </>
+    </div>
   );
 }
