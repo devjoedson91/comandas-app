@@ -28,8 +28,6 @@ export default function Print() {
 
   const [loading, setLoading] = useState(true);
 
-  const [name, setName] = useState("");
-
   const total = formatPrice(
     cart.reduce((sumTotal, product) => {
       return (sumTotal += product.amount * Number(product.price));
@@ -48,8 +46,6 @@ export default function Print() {
         order_id,
       },
     });
-
-    console.log(response.data);
 
     setItems(response.data);
 
@@ -87,7 +83,7 @@ export default function Print() {
   }
 
   return (
-    <div className="p-5 relative min-h-screen">
+    <div className="p-5 relative">
       <Card ref={comandaRef} className="bg-yellow-100">
         <CardHeader>
           <CardTitle className="text-center text-lg">Comanda</CardTitle>
@@ -95,10 +91,14 @@ export default function Print() {
         <CardContent className="flex flex-col gap-5">
           <p>
             <strong>Data: </strong>
-            {new Date(items[0].order.created_at).toLocaleString()}
+            {items.length &&
+              new Date(items[0].order.created_at).toLocaleString()}
           </p>
           <p>
-            <strong>Cliente: </strong> {!name ? "Não informado" : name}
+            <strong>Cliente: </strong>{" "}
+            {items.length && !items[0].order.name
+              ? "Não informado"
+              : items[0].order.name}
           </p>
           <p>
             <strong>Operador: </strong> {user?.name}
@@ -127,7 +127,7 @@ export default function Print() {
         </CardContent>
       </Card>
 
-      <div className="absolute w-full bottom-0 left-0 p-5 flex items-center gap-10">
+      <div className="absolute w-full bottom-10 left-0 p-5 flex items-center gap-10">
         <Button
           className="w-full bg-mainGreen hover:bg-mainGreen"
           onClick={handlePrint}
