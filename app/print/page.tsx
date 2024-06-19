@@ -10,9 +10,12 @@ import Loading from "@/components/ui/loading";
 import { formatPrice } from "@/utils/format";
 import useCart from "@/hooks/useCart";
 import { useUserReducer } from "@/store/reducers/userReducer/useUserReducer";
+import { useToast } from "@/components/ui/use-toast";
 
 export default function Print() {
   const router = useRouter();
+
+  const { toast } = useToast();
 
   const { cart, removeCart } = useCart();
 
@@ -26,7 +29,7 @@ export default function Print() {
 
   const [items, setItems] = useState<ItemsByOrderProps[]>([]);
 
-  const [loading, setLoading] = useState(true);
+  const [loading, setLoading] = useState(false);
 
   const [name, setName] = useState("");
 
@@ -39,25 +42,34 @@ export default function Print() {
   );
 
   useEffect(() => {
-    order_id && itensByOrderId();
+    itensByOrderId();
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [order_id]);
+  }, []);
 
   async function itensByOrderId() {
-    const response = await api.get("/order/items", {
-      params: {
-        order_id,
-      },
-    });
+    try {
+      setLoading(true);
 
-    setName(response.data[0].order.name);
+      const response = await api.get("/order/items", {
+        params: {
+          order_id,
+        },
+      });
 
-    setCreatedAt(response.data[0].order.created_at);
+      setName(response.data[0].order.name);
 
-    setItems(response.data);
+      setCreatedAt(response.data[0].order.created_at);
 
-    setLoading(false);
+      setItems(response.data);
+    } catch (error) {
+      toast({
+        description: "Falha ao gerar a comanda",
+        variant: "destructive",
+      });
+    } finally {
+      setLoading(false);
+    }
   }
 
   const handlePrint = useReactToPrint({
