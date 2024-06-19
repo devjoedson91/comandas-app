@@ -102,11 +102,12 @@ export default function Print() {
 
   return (
     <div className="p-5 flex flex-col gap-10 relative mi-h-screen">
-      <Card ref={comandaRef} className="bg-yellow-100">
-        <CardHeader>
-          <CardTitle className="text-center text-lg">Comanda</CardTitle>
-        </CardHeader>
-        <CardContent className="flex flex-col gap-5">
+      <div
+        ref={comandaRef}
+        className="bg-yellow-100 rounded-md w-full text-black p-5"
+      >
+        <h1 className="text-center text-lg mb-5">Comanda</h1>
+        <div className="flex flex-col gap-5">
           <p>
             <strong>Data: </strong>
             {new Date(createdAt).toLocaleString()}
@@ -138,8 +139,8 @@ export default function Print() {
             <p className="font-bold">Total:</p>
             <p className="font-bold">{total}</p>
           </div>
-        </CardContent>
-      </Card>
+        </div>
+      </div>
 
       <div className="flex items-center w-full justify-between gap-10">
         <Button
