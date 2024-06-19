@@ -12,15 +12,15 @@ import useCart from "@/hooks/useCart";
 import { useUserReducer } from "@/store/reducers/userReducer/useUserReducer";
 
 export default function Print() {
-  const search = useSearchParams();
-
   const router = useRouter();
 
   const { cart, removeCart } = useCart();
 
   const { user } = useUserReducer();
 
-  const order_id = search.get("order_id") as string;
+  const searchParams = useSearchParams();
+
+  const order_id = searchParams.get("order_id") as string;
 
   const comandaRef = useRef(null);
 
