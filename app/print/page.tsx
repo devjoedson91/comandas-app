@@ -109,11 +109,11 @@ export default function Print() {
             <p className="font-bold">Itens</p>
             <p className="font-bold">Preço</p>
           </div>
-          <div className="flex flex-col gap-1 border border-black">
+          <div className="flex flex-col gap-1">
             {items.map((item, index) => {
               return (
                 <div
-                  key={`${index}-${item.order.created_at}`}
+                  key={index}
                   className="w-full items-center justify-between flex"
                 >
                   <p>{`${item.amount}x ${item.product.name}`}</p>
