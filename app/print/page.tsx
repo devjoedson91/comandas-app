@@ -122,18 +122,28 @@ export default function Print() {
             <p className="font-bold">Preço</p>
           </div>
           <div className="flex flex-col gap-1">
-            {items.length &&
-              items.map((item, index) => {
-                return (
-                  <div
-                    key={index}
-                    className="w-full items-center justify-between flex"
-                  >
-                    <p>{`${item.amount}x ${item.product.name}`}</p>
-                    <p>{formatPrice(Number(item.product.price))}</p>
-                  </div>
-                );
-              })}
+            {Array.from({ length: 7 }).map((_, index) => {
+              return (
+                <div
+                  key={index}
+                  className="w-full items-center justify-between flex"
+                >
+                  <p>{`Item ${index}`}</p>
+                  <p>{formatPrice(0)}</p>
+                </div>
+              );
+            })}
+            {/* {items.map((item, index) => {
+              return (
+                <div
+                  key={index}
+                  className="w-full items-center justify-between flex"
+                >
+                  <p>{`${item.amount}x ${item.product.name}`}</p>
+                  <p>{formatPrice(Number(item.product.price))}</p>
+                </div>
+              );
+            })} */}
           </div>
           <div className="w-full flex justify-between items-center">
             <p className="font-bold">Total:</p>
