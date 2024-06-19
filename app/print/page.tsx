@@ -89,7 +89,7 @@ export default function Print() {
   }
 
   return (
-    <div className="p-5 flex flex-col gap-10 relative h-screen">
+    <div className="p-5 flex flex-col gap-10 relative mi-h-screen">
       <Card ref={comandaRef} className="bg-yellow-100">
         <CardHeader>
           <CardTitle className="text-center text-lg">Comanda</CardTitle>
@@ -109,7 +109,7 @@ export default function Print() {
             <p className="font-bold">Itens</p>
             <p className="font-bold">Preço</p>
           </div>
-          <div className="flex flex-col gap-1">
+          <div className="flex flex-col gap-1 border border-black">
             {items.map((item, index) => {
               return (
                 <div
