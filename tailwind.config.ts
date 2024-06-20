@@ -18,6 +18,9 @@ const config = {
       },
     },
     extend: {
+      dropShadow: {
+        "3xl": "0 35px 35px rgba(255, 255, 255, 0.25)",
+      },
       colors: {
         mainGreen: "#007D21",
         yelowDescription: "#F88B0C",

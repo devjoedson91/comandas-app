@@ -48,7 +48,13 @@ export default function Home() {
           onSubmit={form.handleSubmit(handleSubmit)}
           className="flex flex-col items-center gap-8"
         >
-          <Image src={Logo} alt="Logo" className="w-48" />
+          <Image
+            src={Logo}
+            alt="Logo"
+            width={200}
+            height={200}
+            className="drop-shadow-3xl"
+          />
           <h1 className="text-xl self-start font-bold">Login</h1>
           <FormField
             control={form.control}

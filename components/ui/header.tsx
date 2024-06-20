@@ -58,7 +58,13 @@ export default function Header() {
       {pathname === "/cart" ? (
         <h1 className="text-xl font-bold">Comanda</h1>
       ) : (
-        <Image src={Logo} alt="Logo" width={170} height={170} />
+        <Image
+          src={Logo}
+          alt="Logo"
+          width={120}
+          height={120}
+          className="drop-shadow-3xl"
+        />
       )}
 
       {pathname === "/cart" ? (
