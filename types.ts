@@ -40,10 +40,10 @@ export interface UpdateProductAmount {
   amount: number;
 }
 
-export interface ItemsByOrderProps {
+export interface OrderDetailsProps {
+  id: string;
   amount: number;
   product: {
-    id: string;
     name: string;
     price: string;
   };

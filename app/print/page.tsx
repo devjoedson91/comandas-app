@@ -1,6 +1,6 @@
 "use client";
 import { useEffect, useRef, useState } from "react";
-import { ItemsByOrderProps } from "@/types";
+import { OrderDetailsProps } from "@/types";
 import { useRouter, useSearchParams } from "next/navigation";
 import { api } from "@/services/apiClient";
 import { useReactToPrint } from "react-to-print";
@@ -9,31 +9,31 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import Loading from "@/components/ui/loading";
 import { formatPrice } from "@/utils/format";
 import useCart from "@/hooks/useCart";
-import { useUserReducer } from "@/store/reducers/userReducer/useUserReducer";
 import { useToast } from "@/components/ui/use-toast";
+import useAuth from "@/hooks/useAuth";
 
 export default function Print() {
-  const router = useRouter();
+  const searchParams = useSearchParams();
+
+  const order_id = searchParams.get("order_id");
+
+  const { user } = useAuth();
 
   const { toast } = useToast();
 
   const { cart, removeCart } = useCart();
 
-  const { user } = useUserReducer();
-
-  const searchParams = useSearchParams();
-
-  const order_id = searchParams.get("order_id") as string;
-
-  const comandaRef = useRef(null);
-
-  const [items, setItems] = useState<ItemsByOrderProps[]>([]);
+  const [items, setItems] = useState<OrderDetailsProps[]>([]);
 
   const [loading, setLoading] = useState(false);
 
   const [name, setName] = useState("");
 
   const [createdAt, setCreatedAt] = useState(Date.now());
+
+  const comandaRef = useRef(null);
+
+  const router = useRouter();
 
   const total = formatPrice(
     cart.reduce((sumTotal, product) => {
@@ -42,39 +42,33 @@ export default function Print() {
   );
 
   useEffect(() => {
-    itensByOrderId();
+    async function orderDetails() {
+      try {
+        setLoading(true);
+
+        const response = await api.get(`/order/detail?order_id=${order_id}`);
+
+        console.log(response.data);
+
+        setItems(response.data);
+
+        setName(response.data[0].order.name);
+
+        setCreatedAt(response.data[0].order.created_at);
+      } catch (error) {
+        toast({
+          description: "Falha ao gerar a comanda",
+          variant: "destructive",
+        });
+      } finally {
+        setLoading(false);
+      }
+    }
+
+    order_id && orderDetails();
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
-
-  async function itensByOrderId() {
-    try {
-      setLoading(true);
-
-      const response = await api.get("/order/items", {
-        params: {
-          order_id,
-        },
-      });
-
-      setName(response.data[0].order.name);
-
-      setCreatedAt(response.data[0].order.created_at);
-
-      setItems(response.data);
-    } catch (error) {
-      toast({
-        description: "Falha ao gerar a comanda",
-        variant: "destructive",
-      });
-    } finally {
-      setLoading(false);
-    }
-  }
-
-  const handlePrint = useReactToPrint({
-    content: () => comandaRef.current,
-  });
 
   async function handleRemoveOrder() {
     setLoading(true);
@@ -91,6 +85,10 @@ export default function Print() {
 
     router.push("/menu");
   }
+
+  const handlePrint = useReactToPrint({
+    content: () => comandaRef.current,
+  });
 
   if (loading) {
     return (
@@ -122,28 +120,17 @@ export default function Print() {
             <p className="font-bold">Preço</p>
           </div>
           <div className="flex flex-col gap-1">
-            {Array.from({ length: 7 }).map((_, index) => {
+            {items.map((item) => {
               return (
                 <div
-                  key={index}
-                  className="w-full items-center justify-between flex"
-                >
-                  <p>{`Item ${index}`}</p>
-                  <p>{formatPrice(0)}</p>
-                </div>
-              );
-            })}
-            {/* {items.map((item, index) => {
-              return (
-                <div
-                  key={index}
+                  key={item.id}
                   className="w-full items-center justify-between flex"
                 >
                   <p>{`${item.amount}x ${item.product.name}`}</p>
                   <p>{formatPrice(Number(item.product.price))}</p>
                 </div>
               );
-            })} */}
+            })}
           </div>
           <div className="w-full flex justify-between items-center">
             <p className="font-bold">Total:</p>

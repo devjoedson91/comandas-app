@@ -8,7 +8,6 @@ import { useRouter } from "next/navigation";
 import { formatPrice } from "@/utils/format";
 import {
   Dialog,
-  DialogClose,
   DialogContent,
   DialogHeader,
   DialogTitle,
@@ -57,17 +56,15 @@ export default function Cart() {
             amount: Number(item.amount),
           });
         })
-      );
-
-      router.push(`/print?order_id=${order_response.data.id}`);
+      ).then(() => {
+        router.push(`/print?order_id=${order_response.data.id}`);
+      });
     } catch (error) {
       toast({
         description:
           "Houve um problema ao criar pedido, tente novamente ou contate o suporte",
         variant: "destructive",
       });
-    } finally {
-      setLoading(false);
     }
   }
 
@@ -86,10 +83,8 @@ export default function Cart() {
             <h1 className="text-lg font-bold">{total}</h1>
           </div>
           <Dialog>
-            <DialogTrigger>
-              <Button className="bg-mainGreen text-lg w-full hover:bg-mainGreen/60">
-                Finalizar
-              </Button>
+            <DialogTrigger className="bg-mainGreen p-2 rounded-lg text-lg w-full hover:bg-mainGreen/60">
+              <h1>Finalizar</h1>
             </DialogTrigger>
             <DialogContent className="flex flex-col gap-10">
               <DialogHeader>

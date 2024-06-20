@@ -1,12 +1,11 @@
 import { PayloadAction, createSlice } from "@reduxjs/toolkit";
 import { UserProps } from "@/types";
-
 interface UserStore {
   user?: UserProps;
 }
 
 const initialState: UserStore = {
-  user: undefined,
+  user: {} as UserProps,
 };
 
 export const userSlice = createSlice({

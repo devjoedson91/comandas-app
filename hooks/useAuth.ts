@@ -24,7 +24,7 @@ export default function useAuth() {
 
   const [loadingAuth, setLoadingAuth] = useState(false);
 
-  const { setUser } = useUserReducer();
+  const { user, setUser } = useUserReducer();
 
   useEffect(() => {
     const { "@frajola.token": cookie } = parseCookies();
@@ -89,5 +89,6 @@ export default function useAuth() {
     signIn,
     signOut,
     loadingAuth,
+    user,
   };
 }

@@ -16,7 +16,7 @@ export default function CategoryButton({
     <Button
       className={twMerge(
         "border border-gray-100 hover:bg-bgPages bg-bgPages p-3 hover:text-white rounded-lg justify-center items-center",
-        selected ? "border-mainGreen border-[3px]" : null
+        selected ? "border-mainGreen bg-secondary border-[3px]" : null
       )}
       onClick={action}
     >
