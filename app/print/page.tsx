@@ -141,13 +141,13 @@ export default function Print() {
 
       <div className="flex items-center w-full justify-between gap-10">
         <Button
-          className="w-full bg-mainGreen hover:bg-mainGreen"
+          className="w-full bg-mainGreen hover:bg-mainGreen rounded-md"
           onClick={handlePrint}
         >
           Imprimir
         </Button>
         <Button
-          className="w-full bg-red500 hover:bg-red500/60"
+          className="w-full bg-red500 hover:bg-red500/60 rounded-md"
           onClick={handleRemoveOrder}
           disabled={loading}
         >

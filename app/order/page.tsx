@@ -95,7 +95,7 @@ export default function Order() {
             </button>
           </div>
           <Button
-            className="rounded-lg bg-bgButton hover:bg-bgButton/60 flex justify-center px-3 items-center w-40 h-12"
+            className="rounded-md bg-bgButton hover:bg-bgButton/60 flex justify-center px-3 items-center w-40 h-12"
             onClick={handleAddItemCart}
           >
             <h1 className="font-bold text-base">Adicionar</h1>
