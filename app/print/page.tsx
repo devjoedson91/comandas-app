@@ -127,7 +127,7 @@ export default function Print() {
                   className="w-full items-center justify-between flex"
                 >
                   <p>{`${item.amount}x ${item.product.name}`}</p>
-                  <p>{formatPrice(Number(item.product.price))}</p>
+                  <p>{formatPrice(item.amount * Number(item.product.price))}</p>
                 </div>
               );
             })}

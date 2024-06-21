@@ -83,7 +83,7 @@ export default function Cart() {
             <h1 className="text-lg font-bold">{total}</h1>
           </div>
           <Dialog>
-            <DialogTrigger className="bg-mainGreen p-2 rounded-md text-lg w-full hover:bg-mainGreen/60">
+            <DialogTrigger className="bg-mainGreen p-2 font-medium rounded-md text-lg w-full hover:bg-mainGreen/60">
               <h1>Finalizar</h1>
             </DialogTrigger>
             <DialogContent className="flex flex-col gap-10">
@@ -102,7 +102,6 @@ export default function Cart() {
 
                 <Button
                   className="bg-mainGreen hover:bg-mainGreen/60 rounded-md text-white font-medium text-base"
-                  variant="outline"
                   onClick={handleOpenOrder}
                   disabled={loading}
                 >
@@ -118,7 +117,7 @@ export default function Cart() {
             Sua comanda está vazia, retorne ao menu para adicionar seus itens
           </h1>
           <Button
-            className="bg-mainGreen rounded-md text-lg w-full hover:bg-mainGreen/60"
+            className="bg-mainGreen font-medium rounded-md text-lg w-full hover:bg-mainGreen/60"
             onClick={handleReturnToMenu}
           >
             Ir para o menu

@@ -29,7 +29,7 @@ export default function CartItem({ item }: CardItemProps) {
           width={0}
           height={0}
           sizes="100vw"
-          className="w-40 h-40 rounded"
+          className="w-32 h-32 rounded"
           objectFit="cover"
         />
         <div className="flex flex-col w-36 gap-4">
