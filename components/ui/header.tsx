@@ -85,17 +85,13 @@ export default function Header() {
               <DialogClose asChild>
                 <Button
                   className="bg-mainGreen hover:bg-mainGreen/60 text-white font-medium text-base"
-                  variant="outline"
                   onClick={handleRemoveCart}
                 >
                   Sim
                 </Button>
               </DialogClose>
               <DialogClose asChild>
-                <Button
-                  className="bg-yelowDescription hover:bg-yelowDescription/60 text-white font-medium text-base"
-                  variant="outline"
-                >
+                <Button className="bg-red500 hover:bg-red500/60 text-white font-medium text-base">
                   Voltar
                 </Button>
               </DialogClose>
