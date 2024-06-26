@@ -29,6 +29,8 @@ export default function Print({ params }: PrintProps) {
 
   const [loading, setLoading] = useState(false);
 
+  const [isClient, setIsClient] = useState(false);
+
   const [name, setName] = useState("");
 
   const [createdAt, setCreatedAt] = useState(Date.now());
@@ -52,8 +54,6 @@ export default function Print({ params }: PrintProps) {
           `/order/detail?order_id=${params.order_id}`
         );
 
-        console.log(response.data);
-
         setItems(response.data);
 
         setName(response.data[0].order.name);
@@ -72,6 +72,10 @@ export default function Print({ params }: PrintProps) {
     params.order_id && orderDetails();
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
+  useEffect(() => {
+    setIsClient(true);
   }, []);
 
   async function handleRemoveOrder() {
@@ -103,47 +107,56 @@ export default function Print({ params }: PrintProps) {
   }
 
   return (
-    <div className="p-5 flex flex-col gap-10 relative mi-h-screen">
-      <Card ref={comandaRef} className="bg-yellow-100">
+    <div className="relative">
+      <Card
+        ref={comandaRef}
+        className="bg-yellow-100 rounded-none min-h-screen"
+      >
         <CardHeader>
           <CardTitle className="text-center text-lg">Comanda</CardTitle>
         </CardHeader>
         <CardContent className="flex flex-col gap-5">
-          <p>
-            <strong>Data: </strong>
-            {new Date(createdAt).toLocaleString()}
-          </p>
-          <p>
-            <strong>Cliente: </strong> {!name ? "Não informado" : name}
-          </p>
-          <p>
-            <strong>Operador: </strong> {user?.name}
-          </p>
-          <div className="w-full flex justify-between items-center">
-            <p className="font-bold">Itens</p>
-            <p className="font-bold">Preço</p>
-          </div>
-          <div className="flex flex-col gap-1">
-            {items.map((item) => {
-              return (
-                <div
-                  key={item.id}
-                  className="w-full items-center justify-between flex"
-                >
-                  <p>{`${item.amount}x ${item.product.name}`}</p>
-                  <p>{formatPrice(item.amount * Number(item.product.price))}</p>
-                </div>
-              );
-            })}
-          </div>
-          <div className="w-full flex justify-between items-center">
-            <p className="font-bold">Total:</p>
-            <p className="font-bold">{total}</p>
-          </div>
+          {isClient ? (
+            <>
+              <p>
+                <strong>Data: </strong>
+                {new Date(createdAt).toLocaleString()}
+              </p>
+              <p>
+                <strong>Cliente: </strong> {!name ? "Não informado" : name}
+              </p>
+              <p>
+                <strong>Operador: </strong> {user?.name}
+              </p>
+              <div className="w-full flex justify-between items-center">
+                <p className="font-bold">Itens</p>
+                <p className="font-bold">Preço</p>
+              </div>
+              <div className="flex flex-col gap-1">
+                {items.map((item) => {
+                  return (
+                    <div
+                      key={item.id}
+                      className="w-full items-center justify-between flex"
+                    >
+                      <p>{`${item.amount}x ${item.product.name}`}</p>
+                      <p>
+                        {formatPrice(item.amount * Number(item.product.price))}
+                      </p>
+                    </div>
+                  );
+                })}
+              </div>
+              <div className="w-full flex justify-between items-center">
+                <p className="font-bold">Total:</p>
+                <p className="font-bold">{total}</p>
+              </div>
+            </>
+          ) : null}
         </CardContent>
       </Card>
 
-      <div className="flex items-center w-full justify-between gap-10">
+      <div className="absolute bottom-0 left-0 p-8 flex items-center w-full justify-between gap-10">
         <Button
           className="w-full bg-mainGreen hover:bg-mainGreen rounded-md"
           onClick={handlePrint}

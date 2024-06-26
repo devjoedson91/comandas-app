@@ -61,8 +61,8 @@ export default function Header() {
         <Image
           src={Logo}
           alt="Logo"
-          width={120}
-          height={120}
+          width={100}
+          height={100}
           className="drop-shadow-3xl"
         />
       )}
