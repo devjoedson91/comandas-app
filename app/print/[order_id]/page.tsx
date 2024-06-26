@@ -1,7 +1,7 @@
 "use client";
 import { useEffect, useRef, useState } from "react";
 import { OrderDetailsProps } from "@/types";
-import { useRouter, useSearchParams } from "next/navigation";
+import { useRouter } from "next/navigation";
 import { api } from "@/services/apiClient";
 import { useReactToPrint } from "react-to-print";
 import { Button } from "@/components/ui/button";
@@ -12,11 +12,13 @@ import { useToast } from "@/components/ui/use-toast";
 import { useUserReducer } from "@/store/reducers/userReducer/useUserReducer";
 import { useCartReducer } from "@/store/reducers/cartReducer/useCartReducer";
 
-export default function Print() {
-  const searchParams = useSearchParams();
+type PrintProps = {
+  params: {
+    order_id: string;
+  };
+};
 
-  const order_id = searchParams.get("order_id");
-
+export default function Print({ params }: PrintProps) {
   const { user } = useUserReducer();
 
   const { toast } = useToast();
@@ -46,7 +48,9 @@ export default function Print() {
       try {
         setLoading(true);
 
-        const response = await api.get(`/order/detail?order_id=${order_id}`);
+        const response = await api.get(
+          `/order/detail?order_id=${params.order_id}`
+        );
 
         console.log(response.data);
 
@@ -65,7 +69,7 @@ export default function Print() {
       }
     }
 
-    order_id && orderDetails();
+    params.order_id && orderDetails();
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
@@ -75,7 +79,7 @@ export default function Print() {
 
     await api.delete("/order", {
       params: {
-        order_id,
+        order_id: params.order_id,
       },
     });
 

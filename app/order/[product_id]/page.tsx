@@ -1,6 +1,6 @@
 "use client";
 import { useEffect, useState } from "react";
-import { useSearchParams } from "next/navigation";
+// import { useSearchParams } from "next/navigation";
 import { Product } from "@/types";
 import { api } from "@/services/apiClient";
 import Image from "next/image";
@@ -10,36 +10,44 @@ import Header from "@/components/ui/header";
 import Loading from "@/components/ui/loading";
 import { useCartReducer } from "@/store/reducers/cartReducer/useCartReducer";
 
-export default function Order() {
-  const searchParams = useSearchParams();
+type OrderProps = {
+  params: {
+    product_id: string;
+  };
+};
+
+export default function Order({ params }: OrderProps) {
+  // const searchParams = useSearchParams();
 
   const { cart, addToCart, removeFromCart } = useCartReducer();
 
-  const product_id = searchParams.get("product_id") as string;
+  // const product_id = searchParams.get("product_id") as string;
 
   const [loading, setLoading] = useState(false);
 
   const [product, setProduct] = useState<Product>();
 
-  const productExists = cart.find((product) => product.id === product_id);
-
-  async function loadProduct() {
-    setLoading(true);
-    const response = await api.get("/product", {
-      params: {
-        product_id: product_id,
-      },
-    });
-
-    setLoading(false);
-    setProduct(response.data);
-  }
+  const productExists = cart.find(
+    (product) => product.id === params.product_id
+  );
 
   useEffect(() => {
-    product_id && loadProduct();
+    async function loadProduct() {
+      setLoading(true);
+      const response = await api.get("/product", {
+        params: {
+          product_id: params.product_id,
+        },
+      });
+
+      setLoading(false);
+      setProduct(response.data);
+    }
+
+    loadProduct();
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [product_id]);
+  }, []);
 
   function handleAddItemCart() {
     addToCart(product as Product);

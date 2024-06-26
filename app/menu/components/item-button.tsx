@@ -12,7 +12,9 @@ export default function ItemButton({ product }: ItemButtonProps) {
   const router = useRouter();
 
   function navigateToOpenOrder(product_id: string) {
-    router.push(`/order?product_id=${product_id}`);
+    if (!product_id) return;
+
+    router.push(`/order/${product_id}`);
   }
 
   return (

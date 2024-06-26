@@ -57,7 +57,7 @@ export default function Cart() {
           });
         })
       ).then(() => {
-        router.push(`/print?order_id=${order_response.data.id}`);
+        router.push(`/print/${order_response.data.id}`);
       });
     } catch (error) {
       toast({
