@@ -11,6 +11,8 @@ import { formatPrice } from "@/utils/format";
 import { useToast } from "@/components/ui/use-toast";
 import { useUserReducer } from "@/store/reducers/userReducer/useUserReducer";
 import { useCartReducer } from "@/store/reducers/cartReducer/useCartReducer";
+import Image from "next/image";
+import Logo from "@/assets/logo.png";
 
 type PrintProps = {
   params: {
@@ -112,7 +114,8 @@ export default function Print({ params }: PrintProps) {
         ref={comandaRef}
         className="bg-yellow-100 rounded-none min-h-screen"
       >
-        <CardHeader>
+        <CardHeader className="flex flex-col items-center">
+          <Image src={Logo} alt="Logo" width={120} height={120} />
           <CardTitle className="text-center text-lg">Comanda</CardTitle>
         </CardHeader>
         <CardContent className="flex flex-col gap-5">
@@ -156,15 +159,15 @@ export default function Print({ params }: PrintProps) {
         </CardContent>
       </Card>
 
-      <div className="absolute bottom-0 left-0 p-8 flex items-center w-full justify-between gap-10">
+      <div className="absolute top-0 left-0 p-6 flex items-center w-full justify-between">
         <Button
-          className="w-full bg-mainGreen hover:bg-mainGreen rounded-md"
+          className="w-32 bg-mainGreen hover:bg-mainGreen rounded-md"
           onClick={handlePrint}
         >
           Imprimir
         </Button>
         <Button
-          className="w-full bg-red500 hover:bg-red500/60 rounded-md"
+          className="w-32 bg-red500 hover:bg-red500/60 rounded-md"
           onClick={handleRemoveOrder}
           disabled={loading}
         >
