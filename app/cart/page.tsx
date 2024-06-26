@@ -1,7 +1,6 @@
 "use client";
 import { useState } from "react";
 import Header from "@/components/ui/header";
-import useCart from "@/hooks/useCart";
 import CartItem from "./components/cart-item";
 import { Button } from "@/components/ui/button";
 import { useRouter } from "next/navigation";
@@ -16,9 +15,10 @@ import {
 import { Input } from "@/components/ui/input";
 import { api } from "@/services/apiClient";
 import { useToast } from "@/components/ui/use-toast";
+import { useCartReducer } from "@/store/reducers/cartReducer/useCartReducer";
 
 export default function Cart() {
-  const { cart } = useCart();
+  const { cart } = useCartReducer();
 
   const { toast } = useToast();
 

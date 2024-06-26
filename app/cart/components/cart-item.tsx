@@ -1,5 +1,5 @@
 import { Card, CardContent } from "@/components/ui/card";
-import useCart from "@/hooks/useCart";
+import { useCartReducer } from "@/store/reducers/cartReducer/useCartReducer";
 import { Product } from "@/types";
 import { formatPrice } from "@/utils/format";
 import { Minus, Plus } from "lucide-react";
@@ -10,7 +10,7 @@ interface CardItemProps {
 }
 
 export default function CartItem({ item }: CardItemProps) {
-  const { addToCart, removeFromCart } = useCart();
+  const { addToCart, removeFromCart } = useCartReducer();
 
   function handleRemoveItemCart() {
     removeFromCart(item.id);

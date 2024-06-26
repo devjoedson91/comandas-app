@@ -3,9 +3,7 @@ import { Button } from "@/components/ui/button";
 import { ChevronLeft, LogOut, ShoppingCart, Trash2 } from "lucide-react";
 import Image from "next/image";
 import Logo from "@/assets/logo.png";
-import useAuth from "@/hooks/useAuth";
 import { useRouter, usePathname } from "next/navigation";
-import useCart from "@/hooks/useCart";
 import { twMerge } from "tailwind-merge";
 import {
   Dialog,
@@ -15,15 +13,17 @@ import {
   DialogTitle,
   DialogTrigger,
 } from "./dialog";
+import { useUserReducer } from "@/store/reducers/userReducer/useUserReducer";
+import { useCartReducer } from "@/store/reducers/cartReducer/useCartReducer";
 
 export default function Header() {
   const router = useRouter();
 
-  const { cart, removeCart } = useCart();
+  const { cart, removeCart } = useCartReducer();
 
   const pathname = usePathname();
 
-  const { signOut } = useAuth();
+  const { signOut } = useUserReducer();
 
   function handleButtonClick() {
     if (pathname === "/menu") {

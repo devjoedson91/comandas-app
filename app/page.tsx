@@ -15,7 +15,7 @@ import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { Eye, EyeOff } from "lucide-react";
 import Logo from "@/assets/logo.png";
-import useAuth from "@/hooks/useAuth";
+import { useUserReducer } from "@/store/reducers/userReducer/useUserReducer";
 
 const formSchema = z.object({
   email: z.string().email({ message: "Informe um email válido" }),
@@ -25,7 +25,7 @@ const formSchema = z.object({
 });
 
 export default function Home() {
-  const { loadingAuth, signIn } = useAuth();
+  const { loadingAuth, signIn } = useUserReducer();
 
   const form = useForm<z.infer<typeof formSchema>>({
     defaultValues: {

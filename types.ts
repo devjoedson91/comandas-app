@@ -1,3 +1,8 @@
+export type SignInProps = {
+  email: string;
+  password: string;
+};
+
 export type CategoryProps = {
   id: string;
   name: string;

@@ -6,12 +6,13 @@ import {
   removeItemCart,
 } from "@/store/reducers/cartReducer";
 import { Product } from "@/types";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
+import { useAppSelector } from "@/store/useAppSelector";
 
-export default function useCart() {
+export const useCartReducer = () => {
   const dispatch: AppDispatch = useDispatch();
 
-  const cart = useSelector((state: RootState) => state.cartReducer.cart);
+  const cart = useAppSelector((state: RootState) => state.cartReducer.cart);
 
   const prevCartRef = useRef<Product[]>();
 
@@ -45,4 +46,4 @@ export default function useCart() {
     removeFromCart,
     removeCart,
   };
-}
+};

@@ -7,13 +7,13 @@ import Image from "next/image";
 import { Button } from "@/components/ui/button";
 import { Minus, Plus } from "lucide-react";
 import Header from "@/components/ui/header";
-import useCart from "@/hooks/useCart";
 import Loading from "@/components/ui/loading";
+import { useCartReducer } from "@/store/reducers/cartReducer/useCartReducer";
 
 export default function Order() {
   const searchParams = useSearchParams();
 
-  const { cart, addToCart, removeFromCart } = useCart();
+  const { cart, addToCart, removeFromCart } = useCartReducer();
 
   const product_id = searchParams.get("product_id") as string;
 

@@ -1,4 +1,4 @@
-import { Product, UpdateProductAmount } from "@/types";
+import { Product } from "@/types";
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
 interface CartStateData {

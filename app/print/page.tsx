@@ -8,20 +8,20 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import Loading from "@/components/ui/loading";
 import { formatPrice } from "@/utils/format";
-import useCart from "@/hooks/useCart";
 import { useToast } from "@/components/ui/use-toast";
-import useAuth from "@/hooks/useAuth";
+import { useUserReducer } from "@/store/reducers/userReducer/useUserReducer";
+import { useCartReducer } from "@/store/reducers/cartReducer/useCartReducer";
 
 export default function Print() {
   const searchParams = useSearchParams();
 
   const order_id = searchParams.get("order_id");
 
-  const { user } = useAuth();
+  const { user } = useUserReducer();
 
   const { toast } = useToast();
 
-  const { cart, removeCart } = useCart();
+  const { cart, removeCart } = useCartReducer();
 
   const [items, setItems] = useState<OrderDetailsProps[]>([]);
 
